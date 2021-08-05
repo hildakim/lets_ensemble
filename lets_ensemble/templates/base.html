@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+      .nav-item span{
+        text-align: center;
+        text-decoration: none;
+        font-family: 'Old Standard TT', serif;
+        font-weight: bold;
+        font-size: 40px;
+        color: white;
+        margin-right: 30px;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <nav>
+      <ul class="service-menu">
+        <li class="nav-item">
+          <a href="{%url 'home' %}" id='door-link'>home</a>
+        </li>
+        {%if user.is_authenticated %}
+        <li class="nav-item">
+          <a href="{% url 'board:new' %}">write</a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'messenger:home' %}">messenger</a>
+        </li>
+        {%endif%}
+        <li class="nav-item">
+          <a href="{% url 'board:sendmail' %}">send e-mail</a>
+        </li>
+      </ul>
+
+      <ul class="user-menu">
+        <li class="nav-item">
+          {%if user.is_authenticated %}
+          <span>{{ user.username }}님</span>
+          <a href="/accounts/logout" class="a-auth">Logout</a>
+          {%else%}
+          <a href="{%url 'login' %}">Login</a>
+          {%endif%}
+        </li>
+        
+      </ul>
+    </nav>
+
+
+    <div class="container">
+      {% block content %}
+      {% endblock %}
+    </div>
+
+  </body>
+</html>

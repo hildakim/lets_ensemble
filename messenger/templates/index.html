@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    /* body, div, header, h2, p, a, table, th, tr, td {
+        border: 1px solid black;
+    } */
+    div, header {
+        border: 1px solid rgb(250, 217, 243);
+    }
+    header, .send-btn_box {
+        font-family: 'Noto Serif KR', serif;
+        text-align: center;
+    }
+    header{
+        text-align: center;
+        font-size: 35px;
+        font-weight: bold;
+    }
+    .send-btn_box {
+        padding: 5px;
+    }
+    .send-btn_box a{
+        text-decoration: none;
+        background-color: white;
+        font-size: 20px;
+        font-weight: bold;
+    }
+    .messenger-box {
+        font-family: 'Noto Serif KR', serif;
+        display: flex;
+        justify-content: center;
+        background-color: white;
+        padding: 20px;
+    }
+    .message-wrap {
+        padding: 10px;
+        background-color: rgb(250, 217, 243);
+        margin: 20px;
+        width:30%;
+        min-height: 500px;
+    }
+    .message-wrap h2 {
+        text-align: center;
+    }
+    .message-table {
+        width: 100%;
+    }
+    .message-table th{
+        border-bottom: 1px solid gray;
+    }
+    a {
+        text-decoration: none;
+        color: black;
+    }
+    .message_title{
+        color:rgb(255, 88, 185);
+    }
+    .message_title:hover{
+        text-decoration: underline;
+    }
+</style>
+<header>쪽지함</header>
+
+<div class="send-btn_box">
+    <a href="{%url 'messenger:new' %}">쪽지 보내기</a>
+</div>
+
+<section class="messenger-box">
+    <div class="message-wrap">
+        <h2>받은 쪽지</h2>
+        <table class="message-table">
+            <tr>
+                <th>보낸 사람</th>
+                <th>제목</th>
+            </tr>
+            {%for message in messages %}
+                {% if message.receiver_id.username == user.username %}
+                <tr>
+                    <td>{{message.sender_id}}</td>
+                    <td><a href="{%url 'messenger:detail' message.id%}" class="message_title">{{message.title}}</a></td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+    </table>
+    </div>
+    <div class="message-wrap">
+        <h2>보낸 쪽지</h2>
+        <table class="message-table">
+            <tr>
+                <th>받은 사람</th>
+                <th>제목</th>
+            </tr>
+            {%for message in messages %}
+                {% if message.sender_id.username == user.username %}
+                <tr>
+                    <td>{{message.receiver_id}}</td>
+                    <td><a href="{%url 'messenger:detail' message.id%}" class="message_title">{{message.title}}</a></td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+    </div>
+</section>
+
+{% endblock %}

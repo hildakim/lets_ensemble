@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    /* body, div, header, h2, p, a, table, th, tr, td {
+        border: 1px solid black;
+    } */
+    .detail-table{
+        width: 60%;
+        font-family: 'Noto Serif KR', serif;
+        background-color: white;
+        margin: 10px auto;
+    }
+    .detail-table th {
+        border-bottom:1px solid gray;
+    }
+    .detail-table td {
+        min-width: 50px;
+        padding: 10px;
+    }
+    .big-title{
+        font-size: 25px;
+    }
+</style>
+
+<br>
+
+<div>
+    <table class="detail-table">
+        <tr>
+            <td>제목</td>
+            <th colspan="2" id="big-title">{{message.title}}</th>
+        </tr>
+        <tr>
+            <td>보내는 사람</td>
+            <td>{{message.sender_id}}</td>
+        </tr>
+        <tr>
+            <td>받는 사람</td>
+            <td>{{message.receiver_id}}</td>
+        </tr>
+        <tr>
+            <td>보낸 날짜</td>
+            <td> {{message.upload_date}}</td>
+        </tr>
+        <tr> 
+            <td>내용</td>
+            <td colspan="2" id="mainText">{{message.body | linebreaks }}</td>
+        </tr>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+html, body, nav, div, ul, li {
+    /* border: 1px black solid; */
+    background-color: rgb(255, 161, 235);
+  }
+  .nav-item {
+    /* padding: 15px;
+    padding-right: 15px;
+    margin: 3px;
+    font-weight: bolder; */
+    display: inline-block;
+    padding: 10px;
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+  .nav-item a{
+    text-align: center;
+    text-decoration: none;
+    font-family: 'Old Standard TT', serif;
+    font-weight: bold;
+    font-size: 40px;
+    color: white;
+  }
+  .service-menu, .user-menu {
+    display: inline-flex;
+  }
+  .user-menu {
+    /* display: flex; */
+    float: right;
+  }
+  #door-link {
+    padding: 4px;
+    border: 2px white solid;
+    border-radius: 50%;
+  }
+
+
+
+  /* room.html */
+ 
+
+/* home.html */
+

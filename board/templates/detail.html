@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    /* body, div, header, h2, p, a, table, th, tr, td {
+        border: 1px solid black;
+    } */
+    .detail-table{
+        width: 60%;
+        font-family: 'Noto Serif KR', serif;
+        background-color: white;
+        margin: 10px auto;
+    }
+    .detail-table th {
+        border-bottom:1px solid gray;
+    }
+    .detail-table td {
+        min-width: 50px;
+        padding: 10px;
+    }
+    .center-btn{
+        text-align: center;
+    }
+    .big-title{
+        font-size: 25px;
+    }
+    .button_box {
+        text-align: center;
+        text-decoration: none;
+        font-family: 'Noto Serif KR', serif;
+        /* color:rgb(23, 77, 255); */
+        color: white;
+        font-size: 20px;
+        font-weight: bold;
+        border-radius: 50%;
+        border: 2px white solid;
+        padding: 2px;
+        background-color:rgb(248, 113, 192) ;
+        margin: 5px;
+    }
+</style>
+
+
+<br>
+<div>
+    <table class="detail-table">
+        <tr>
+            <td>제목</td>
+            <th colspan="2" class="big-title">{{boardPost.title}}</th>
+        </tr>
+        <tr>
+            <td>글쓴이</td>
+            <td>{{boardPost.author}}</td>
+        </tr>
+        <tr>
+            <td>일자</td>
+            <td>{{boardPost.upload_date}}</td>
+        </tr>
+        <tr> 
+            <td>내용</td>
+            <td colspan="2" id="mainText">{{boardPost.body | linebreaks }}</td>
+        </tr>
+        {% if boardPost.image %}
+        <tr>
+            <td colspan="2"><img src="{{boardPost.image.url}}" alt="" max-width="500px" max-height="500px"></td>
+        </tr>
+        {% endif %}
+        {%if user.is_authenticated %}
+            {%if boardPost.author.username == user.username %}
+            <tr>
+                <td class="center-btn" colspan="2">
+                        <a href="{%url 'board:edit' boardPost.id %}" class="button_box">edit</a>
+                        <a href="{%url 'board:delete' boardPost.id %}" class="button_box">delete</a>
+                </td>
+            </tr>
+            {%endif%}
+        {%endif%}
+    </table>
+</div>
+{% endblock %}

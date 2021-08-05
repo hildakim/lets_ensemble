@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    /* body, div, header, h2, p, a, table, th, tr, td, img {
+        border: 1px solid black;
+    } */
+    .post-table {
+        width: 60%;
+        margin: 5px auto;
+        background-color: white;
+        font-family: 'Noto Serif KR', serif;
+        padding: 10px;
+    }
+    .direction {
+        font-family: 'Noto Serif KR', serif;
+        text-align: center;
+    }
+    a {
+        text-decoration: none;
+        color: black;
+    }
+    .post_title{
+        color:rgb(255, 88, 185);
+    }
+    .post_title:hover{
+        text-decoration: underline;
+    }
+    /* mail */
+    label {
+        background-color: white;
+        font-family: 'Noto Serif KR', serif;
+        color: rgb(0, 0, 0);
+        font-weight: bold;
+    }
+    .controls {
+        background-color: white;
+        font-family: 'Noto Serif KR', serif;
+        color: black;
+        font-weight: bold;
+    }
+    .form-group {
+        box-sizing: border-box;
+        width: 500px;
+        background-color: white;
+        padding: 10px;
+    }
+    form {
+        text-align: center;
+        box-sizing: border-box;
+        width: 500px;
+        display: block;
+        margin: auto;
+    }
+    .form-wrapper {
+        text-align: center;
+    }
+    button {
+        text-align: center;
+        text-decoration: none;
+        font-family: 'Noto Serif KR', serif;
+        /* color:rgb(23, 77, 255); */
+        color: white;
+        font-size: 20px;
+        font-weight: bold;
+        border-radius: 50%;
+        border: 2px white solid;
+        padding: 2px;
+        background-color:rgb(248, 113, 192) ;
+        margin: 5px;
+    }
+    .textarea {
+        box-sizing: border-box;
+        width: 450px;
+        font-family: 'Noto Serif KR', serif;
+    }
+</style>
+<br>
+<div class="big-container">
+    <br>
+    {% for post in posts %}
+    <table class="post-table">
+        {% if post.image %}
+        <tr>
+            <td rowspan="2"><img src="{{post.image_thumbnail.url}}" alt="thumbnail"></td>
+        
+        {% endif %}
+            <td><a href="{%url 'board:detail' post.id %}" class="post_title">{{post.title}}</a></td>
+        </tr>
+        <tr>
+            <td>{{post.summary}}</td>
+        </tr>
+    </table>
+    <br>
+    {% endfor %}
+    
+    <div class="container direction">
+    {% if posts.has_previous %}
+        <a href="?page=1">First</a>
+        <a href="?page={{posts.previous_page_number}}">&#9194;</a>
+    {% endif %}
+
+        <span>{{posts.number}}</span>
+        <span>of</span>
+        <span>{{posts.paginator.num_pages}}</span>
+    
+    {% if posts.has_next %}
+        <a href="?page={{posts.next_page_number}}">&#9193;</a>
+        <a href="?page={{posts.paginator.num_pages}}">Last</a>
+    {% endif %}
+    </div>
+</div>
+<br>
+
+{% endblock %}
